@@ -815,9 +815,8 @@
         let currentImageIndex = 0;
         let allProducts = [];
 
-        document.addEventListener('DOMContentLoaded', async () => {
-            await initDB();
-            await loadProducts();
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProducts();
             displayProducts();
 
             // Image upload
@@ -970,63 +969,28 @@
             }
         }
 
-        let db;
-        const DB_NAME = 'GhoharyDB';
-        const STORE_NAME = 'products';
-
-        // Initialize IndexedDB
-        function initDB() {
-            return new Promise((resolve, reject) => {
-                const request = indexedDB.open(DB_NAME, 1);
-
-                request.onerror = () => reject(request.error);
-                request.onsuccess = () => {
-                    db = request.result;
-                    resolve(db);
-                };
-
-                request.onupgradeneeded = (e) => {
-                    const database = e.target.result;
-                    if (!database.objectStoreNames.contains(STORE_NAME)) {
-                        database.createObjectStore(STORE_NAME, { keyPath: 'id' });
-                    }
-                };
-            });
-        }
-
         function saveProducts() {
-            if (!db) return;
-            const transaction = db.transaction([STORE_NAME], 'readwrite');
-            const store = transaction.objectStore(STORE_NAME);
-            store.clear();
-
-            products.forEach(product => {
-                store.add(product);
-            });
-
-            transaction.oncomplete = () => console.log('✅ Products saved to IndexedDB');
-            transaction.onerror = () => console.error('❌ Error saving products');
+            try {
+                localStorage.setItem('mohsenProducts', JSON.stringify(products));
+                console.log('✅ Products saved');
+            } catch (e) {
+                if (e.name === 'QuotaExceededError') {
+                    alert('❌ Storage full. Please delete some products.');
+                }
+            }
         }
 
         function loadProducts() {
-            return new Promise((resolve) => {
-                if (!db) {
-                    products = [];
-                    allProducts = [];
-                    resolve();
-                    return;
-                }
-
-                const transaction = db.transaction([STORE_NAME], 'readonly');
-                const store = transaction.objectStore(STORE_NAME);
-                const request = store.getAll();
-
-                request.onsuccess = () => {
-                    products = request.result;
-                    allProducts = products;
-                    resolve();
-                };
-            });
+            try {
+                const saved = localStorage.getItem('mohsenProducts');
+                products = saved ? JSON.parse(saved) : [];
+                allProducts = products;
+                console.log('✅ Loaded ' + products.length + ' products');
+            } catch (e) {
+                console.error('Error loading products:', e);
+                products = [];
+                allProducts = [];
+            }
         }
 
         function displayProducts() {

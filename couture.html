@@ -390,7 +390,20 @@
 
         function loadProducts() {
             const saved = localStorage.getItem('mohsenProducts');
-            products = saved ? JSON.parse(saved) : [];
+            if (saved) {
+                products = JSON.parse(saved);
+            } else {
+                // Default products
+                products = [
+                    { id: 1, name: 'Elegant Black Gown', category: 'Evening Wear', price: '2500', description: 'Luxurious black evening gown' },
+                    { id: 2, name: 'White Pearl Dress', category: 'Casual', price: '1800', description: 'Elegant white casual dress' },
+                    { id: 3, name: 'Gold Sequin Saree', category: 'Traditional', price: '3200', description: 'Beautiful gold sequined saree' },
+                    { id: 4, name: 'Navy Blue Abaya', category: 'Abayas', price: '1200', description: 'Sophisticated navy abaya' },
+                    { id: 5, name: 'Silk Embroidered Dress', category: 'Formal', price: '2800', description: 'Fine silk with intricate embroidery' },
+                    { id: 6, name: 'Pastel Pink Gown', category: 'Evening Wear', price: '2200', description: 'Soft pastel pink evening gown' }
+                ];
+                localStorage.setItem('mohsenProducts', JSON.stringify(products));
+            }
             filteredProducts = products;
         }
 

@@ -398,9 +398,12 @@
         let subtotal = 0;
         let shippingCost = 0;
 
+        // Load cart and setup when page loads
         document.addEventListener('DOMContentLoaded', () => {
             loadCart();
             setupEventListeners();
+            // Initialize Stripe after DOM is ready
+            setTimeout(initStripe, 100);
         });
 
         function loadCart() {
@@ -501,22 +504,58 @@
                 country: document.getElementById('country').value,
                 phone: document.getElementById('phone').value,
                 shippingMethod: document.querySelector('input[name="shipping"]:checked').value,
-                paymentMethod: document.querySelector('input[name="payment"]:checked').value,
+                paymentMethod: 'stripe',
                 total: subtotal + shippingCost,
                 items: cartItems,
                 date: new Date().toLocaleString()
             };
 
-            // Save order
-            let orders = JSON.parse(localStorage.getItem('orders') || '[]');
-            orders.push(formData);
-            localStorage.setItem('orders', JSON.stringify(orders));
+            // Store form data temporarily
+            window.currentOrder = formData;
 
-            // Clear cart
-            localStorage.removeItem('cartItems');
+            // Show payment modal and set amount
+            document.getElementById('paymentAmount').textContent = (subtotal + shippingCost).toLocaleString();
+            document.getElementById('paymentModal').style.display = 'flex';
 
-            // Redirect to confirmation page
-            window.location.href = 'order-confirmation.html';
+            // Handle payment form submission
+            const paymentForm = document.getElementById('payment-form');
+            paymentForm.onsubmit = async function(e) {
+                e.preventDefault();
+
+                // Create payment method
+                const { paymentMethod, error } = await stripe.createPaymentMethod({
+                    type: 'card',
+                    card: cardElement,
+                    billing_details: {
+                        name: formData.firstName + ' ' + formData.lastName,
+                        email: formData.email,
+                        phone: formData.phone,
+                    }
+                });
+
+                if (error) {
+                    document.getElementById('card-errors').textContent = error.message;
+                    return;
+                }
+
+                // Save order with payment method
+                formData.paymentMethodId = paymentMethod.id;
+                let orders = JSON.parse(localStorage.getItem('orders') || '[]');
+                orders.push(formData);
+                localStorage.setItem('orders', JSON.stringify(orders));
+
+                // Clear cart
+                localStorage.removeItem('cartItems');
+
+                // Close payment modal
+                closePaymentModal();
+
+                // Show success message
+                alert('✓ Payment Successful!\n\nOrder ID: ' + Date.now() + '\n\nThank you for your order!');
+                
+                // Redirect to confirmation
+                window.location.href = 'order-confirmation.html';
+            };
         }
 
         let stripe;

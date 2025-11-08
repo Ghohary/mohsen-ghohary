@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - Mohsen Ghohary</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .account-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .account-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 2rem;
+        }
+
+        .account-header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #000;
+            margin: 0;
+        }
+
+        .account-content {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 3rem;
+        }
+
+        .account-sidebar {
+            background: #f9f9f9;
+            padding: 2rem;
+            border: 1px solid #eee;
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+        }
+
+        .sidebar-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #000;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #000;
+            padding-bottom: 1rem;
+        }
+
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .sidebar-link {
+            padding: 1rem;
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+            border-left: 3px solid transparent;
+            transition: all 0.3s;
+            letter-spacing: 0.02em;
+        }
+
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            background: #fff;
+            color: #000;
+            border-left-color: #000;
+        }
+
+        .account-main {
+            background: #fff;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .orders-section {
+            padding: 2rem 0;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: #000;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #000;
+            padding-bottom: 1rem;
+        }
+
+        .order-card {
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 4px;
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1rem;
+        }
+
+        .order-id {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #000;
+            letter-spacing: 0.05em;
+        }
+
+        .order-status {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .order-body {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .order-items {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            color: #666;
+        }
+
+        .order-item-name {
+            font-weight: 600;
+            color: #000;
+        }
+
+        .order-summary {
+            text-align: right;
+        }
+
+        .order-total {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 1rem;
+        }
+
+        .order-date {
+            font-size: 0.85rem;
+            color: #999;
+            margin-bottom: 1rem;
+        }
+
+        .order-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .order-btn {
+            padding: 0.6rem 1.2rem;
+            background: #000;
+            color: #fff;
+            border: none;
+            border-radius: 0;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .order-btn:hover {
+            background: #333;
+        }
+
+        .order-btn.secondary {
+            background: #fff;
+            color: #000;
+            border: 1px solid #000;
+        }
+
+        .order-btn.secondary:hover {
+            background: #f5f5f5;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: #f9f9f9;
+            border-radius: 4px;
+        }
+
+        .empty-state h2 {
+            font-size: 1.3rem;
+            color: #000;
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-state p {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .empty-state a {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: #000;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+
+        .empty-state a:hover {
+            background: #333;
+        }
+
+        .profile-form {
+            max-width: 600px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #000;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 2px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            transition: all 0.3s;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #000;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .save-btn {
+            padding: 1rem 2rem;
+            background: #000;
+            color: #fff;
+            border: none;
+            border-radius: 0;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .save-btn:hover {
+            background: #333;
+        }
+
+        @media (max-width: 768px) {
+            .account-content {
+                grid-template-columns: 1fr;
+            }
+
+            .account-sidebar {
+                position: static;
+            }
+
+            .order-body {
+                grid-template-columns: 1fr;
+            }
+
+            .order-actions {
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="header-container"></div>
+
+    <div class="account-container">
+        <div class="account-header">
+            <h1>My Account</h1>
+        </div>
+
+        <div class="account-content">
+            <!-- Sidebar -->
+            <div class="account-sidebar">
+                <div class="sidebar-title">Menu</div>
+                <div class="sidebar-menu">
+                    <a class="sidebar-link active" onclick="switchTab('orders', this)">My Orders</a>
+                    <a class="sidebar-link" onclick="switchTab('profile', this)">Profile</a>
+                    <a class="sidebar-link" href="index.html">Logout</a>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="account-main">
+                <!-- Orders Tab -->
+                <div id="orders" class="tab-content active">
+                    <div class="orders-section">
+                        <div class="section-title">My Orders</div>
+                        <div id="ordersContainer"></div>
+                    </div>
+                </div>
+
+                <!-- Profile Tab -->
+                <div id="profile" class="tab-content">
+                    <div class="orders-section">
+                        <div class="section-title">Profile Information</div>
+                        <form class="profile-form" id="profileForm" onsubmit="saveProfile(event)">
+                            <div class="form-group">
+                                <label for="profileEmail">Email Address</label>
+                                <input type="email" id="profileEmail" name="email" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="profileName">Full Name</label>
+                                <input type="text" id="profileName" name="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="profilePhone">Phone Number</label>
+                                <input type="tel" id="profilePhone" name="phone">
+                            </div>
+                            <div class="form-group">
+                                <label for="profileAddress">Address</label>
+                                <input type="text" id="profileAddress" name="address">
+                            </div>
+                            <button type="submit" class="save-btn">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let orders = [];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadOrders();
+            loadProfile();
+        });
+
+        function loadOrders() {
+            orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            displayOrders();
+        }
+
+        function displayOrders() {
+            const container = document.getElementById('ordersContainer');
+
+            if (orders.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h2>No Orders Yet</h2>
+                        <p>You haven't placed any orders yet. Start shopping now!</p>
+                        <a href="couture.html">Start Shopping</a>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            orders.forEach((order, index) => {
+                const orderDate = new Date(order.date).toLocaleDateString();
+                const itemsText = order.items.map(item => item.name).join(', ');
+
+                html += `
+                    <div class="order-card">
+                        <div class="order-header">
+                            <div class="order-id">Order #${index + 1}</div>
+                            <div class="order-status">Confirmed</div>
+                        </div>
+                        <div class="order-body">
+                            <div class="order-items">
+                                <div><strong>Items:</strong></div>
+                                <div>${itemsText}</div>
+                                <div style="margin-top: 1rem;"><strong>Shipping:</strong> ${order.firstName} ${order.lastName}</div>
+                                <div>${order.address}, ${order.city}</div>
+                            </div>
+                            <div class="order-summary">
+                                <div class="order-total">AED ${order.total.toLocaleString()}</div>
+                                <div class="order-date">${orderDate}</div>
+                                <div class="order-actions">
+                                    <button class="order-btn secondary" onclick="viewInvoice(${index})">Invoice</button>
+                                    <button class="order-btn" onclick="viewOrder(${index})">Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function viewOrder(index) {
+            const order = orders[index];
+            alert(`Order #${index + 1} Details:\n\nStatus: Confirmed\nTotal: AED ${order.total.toLocaleString()}\nShipping: ${order.shippingMethod}\nDelivery Address: ${order.address}, ${order.city}, ${order.country}`);
+        }
+
+        function viewInvoice(index) {
+            const order = orders[index];
+            let invoiceHTML = `
+            Order Invoice - Order #${index + 1}
+            
+Date: ${new Date(order.date).toLocaleDateString()}
+Status: Confirmed
+
+CUSTOMER INFORMATION
+Name: ${order.firstName} ${order.lastName}
+Email: ${order.email}
+Phone: ${order.phone}
+
+SHIPPING ADDRESS
+${order.address}
+${order.city}, ${order.postal}
+${order.country}
+
+ITEMS ORDERED
+`;
+            order.items.forEach(item => {
+                const price = item.price === 'Price on Request' ? 'Contact' : item.price;
+                invoiceHTML += `\n• ${item.name} - ${price}`;
+            });
+
+            invoiceHTML += `
+
+PAYMENT SUMMARY
+Subtotal: AED ${(order.total - (order.shippingMethod === 'express' ? 50 : order.shippingMethod === 'overnight' ? 150 : 0)).toLocaleString()}
+Shipping (${order.shippingMethod}): AED ${(order.shippingMethod === 'express' ? 50 : order.shippingMethod === 'overnight' ? 150 : 0).toLocaleString()}
+TOTAL: AED ${order.total.toLocaleString()}
+
+Thank you for your order!
+`;
+
+            // Open in new window for printing
+            const newWindow = window.open('', '', 'height=600,width=800');
+            newWindow.document.write('<pre style="font-family: monospace; padding: 20px;">' + invoiceHTML + '</pre>');
+            newWindow.document.write('<button onclick="window.print()" style="padding: 10px 20px; background: #000; color: #fff; border: none; cursor: pointer; font-weight: bold;">Print Invoice</button>');
+        }
+
+        function loadProfile() {
+            const lastOrder = orders[orders.length - 1];
+            if (lastOrder) {
+                document.getElementById('profileEmail').value = lastOrder.email;
+                document.getElementById('profileName').value = lastOrder.firstName + ' ' + lastOrder.lastName;
+                document.getElementById('profilePhone').value = lastOrder.phone;
+                document.getElementById('profileAddress').value = lastOrder.address;
+            }
+        }
+
+        function saveProfile(event) {
+            event.preventDefault();
+            alert('Profile updated successfully!');
+        }
+
+        function switchTab(tabName, element) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Remove active class from all links
+            document.querySelectorAll('.sidebar-link').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            element.classList.add('active');
+        }
+
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const toggle = document.querySelector('.menu-toggle');
+            
+            if (menu && toggle) {
+                menu.classList.toggle('active');
+                toggle.classList.toggle('active');
+            }
+        }
+
+        function closeMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const toggle = document.querySelector('.menu-toggle');
+            
+            if (menu && toggle) {
+                menu.classList.remove('active');
+                toggle.classList.remove('active');
+            }
+        }
+
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            })
+            .catch(e => console.log('Header not found'));
+    </script>
+</body>
+</html>

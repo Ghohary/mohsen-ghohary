@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Mohsen Ghohary Luxury Fashion</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .about-hero {
+            height: 50vh;
+            background: linear-gradient(to right, #f5f5f5 0%, #ececec 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .about-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .about-hero p {
+            font-size: 1rem;
+            color: #666;
+            letter-spacing: 0.05em;
+            margin-top: 1rem;
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 1rem;
+        }
+
+        .about-section {
+            margin-bottom: 5rem;
+        }
+
+        .about-section h2 {
+            font-size: 2rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 1rem;
+        }
+
+        .about-section p {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.02em;
+            font-weight: 300;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .value-card {
+            background: var(--light-gray);
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .value-card:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            border-color: var(--accent-color);
+        }
+
+        .value-card h3 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .value-card p {
+            font-size: 0.95rem;
+            color: #666;
+            margin: 0;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline-item {
+            margin-bottom: 3rem;
+            padding-left: 3rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            border: 3px solid var(--secondary-color);
+            box-shadow: 0 0 0 2px var(--primary-color);
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 20px;
+            width: 4px;
+            height: 60px;
+            background: var(--border-color);
+        }
+
+        .timeline-item:last-child::after {
+            display: none;
+        }
+
+        .timeline-item h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        .timeline-item p {
+            font-size: 0.95rem;
+            color: #666;
+            margin: 0;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .team-member {
+            background: var(--light-gray);
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .team-member h4 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-member p {
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            margin-top: 0;
+        }
+
+        .team-member-bio {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        @media (min-width: 768px) {
+            .values-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about-hero h1 {
+                font-size: 4rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .values-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .team-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="header-container"></div>
+
+    <!-- About Hero -->
+    <section class="about-hero">
+        <div>
+            <h1>About Mohsen Ghohary</h1>
+            <p>Redefining Luxury Through Timeless Design</p>
+        </div>
+    </section>
+
+    <!-- About Content -->
+    <div class="about-container">
+        <!-- Our Story -->
+        <section class="about-section">
+            <h2>Our Story</h2>
+            <p>Founded with a vision to revolutionize luxury fashion, Mohsen Ghohary represents the pinnacle of sophistication and craftsmanship. Our journey began with a simple belief: that true luxury lies not in excess, but in the perfect marriage of elegance, quality, and innovation.</p>
+            
+            <p>Every piece in our collection is meticulously designed and crafted by master artisans who understand that luxury is an experience, not just a possession. We combine traditional techniques with contemporary vision to create garments and accessories that transcend trends and define timeless style.</p>
+            
+            <p>At Mohsen Ghohary, we don't just create fashion—we create art that celebrates the beauty of refinement and the power of self-expression through impeccable design.</p>
+        </section>
+
+        <!-- Our Mission -->
+        <section class="about-section">
+            <h2>Our Mission</h2>
+            <p>To deliver exceptional luxury collections that inspire confidence, celebrate individuality, and stand the test of time. We are committed to creating pieces that seamlessly blend heritage craftsmanship with cutting-edge design, ensuring every customer experiences the true meaning of luxury.</p>
+        </section>
+
+        <!-- Core Values -->
+        <section class="about-section">
+            <h2>Our Core Values</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <h3>Craftsmanship</h3>
+                    <p>Every stitch, every seam, every detail is executed with precision and passion. Our artisans bring decades of expertise to create pieces of uncompromising quality.</p>
+                </div>
+                <div class="value-card">
+                    <h3>Innovation</h3>
+                    <p>We blend tradition with modernity, constantly exploring new techniques and materials to push the boundaries of luxury fashion while respecting timeless elegance.</p>
+                </div>
+                <div class="value-card">
+                    <h3>Sustainability</h3>
+                    <p>We believe luxury and responsibility go hand in hand. Our commitment to ethical practices and sustainable materials ensures beauty that lasts for generations.</p>
+                </div>
+                <div class="value-card">
+                    <h3>Excellence</h3>
+                    <p>We never compromise. From raw materials to final delivery, every aspect meets our exacting standards of excellence and quality.</p>
+                </div>
+                <div class="value-card">
+                    <h3>Heritage</h3>
+                    <p>We honor the rich traditions of haute couture while creating the luxury pieces of tomorrow. Our designs are rooted in history and vision.</p>
+                </div>
+                <div class="value-card">
+                    <h3>Exclusivity</h3>
+                    <p>Limited collections and bespoke services ensure that each piece is as unique as the individual who wears it. Luxury means being one of few, not one of many.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Journey -->
+        <section class="about-section">
+            <h2>Our Journey</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4>2015</h4>
+                    <p>Mohsen Ghohary founded with a vision to create luxury fashion that transcends time and trends.</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>2017</h4>
+                    <p>Launched our first collection of haute couture dresses and signature accessories. Recognition from international fashion critics.</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>2019</h4>
+                    <p>Expanded to include premium leather goods and expanded our global presence across major luxury markets.</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>2021</h4>
+                    <p>Introduced our sustainable luxury initiative, committing to ethical sourcing and eco-friendly production methods.</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>2023</h4>
+                    <p>Launched our bespoke customization service, allowing clients to create truly personalized luxury pieces.</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>2025</h4>
+                    <p>Today, Mohsen Ghohary is recognized globally as a leader in contemporary luxury fashion and timeless elegance.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Team -->
+        <section class="about-section">
+            <h2>Meet Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <h4>Mohsen Ghohary</h4>
+                    <p>Founder & Creative Director</p>
+                    <p class="team-member-bio">Visionary designer with 20+ years of experience in haute couture. Mohsen's designs have been featured in leading international fashion publications and worn by celebrities and dignitaries worldwide.</p>
+                </div>
+                <div class="team-member">
+                    <h4>Sarah Mitchell</h4>
+                    <p>Chief Design Officer</p>
+                    <p class="team-member-bio">Award-winning designer bringing innovation and contemporary vision to our collections. Sarah leads our design team in creating pieces that bridge tradition and modernity.</p>
+                </div>
+                <div class="team-member">
+                    <h4>Marcus Chen</h4>
+                    <p>Head of Artisanal Craftsmanship</p>
+                    <p class="team-member-bio">Master craftsman with 30 years of experience in traditional tailoring and luxury production. Marcus oversees all handmade elements ensuring impeccable quality.</p>
+                </div>
+                <div class="team-member">
+                    <h4>Elena Rodriguez</h4>
+                    <p>Director of Sustainability</p>
+                    <p class="team-member-bio">Sustainability expert committed to ethical fashion practices. Elena ensures our collections meet the highest environmental and social responsibility standards.</p>
+                </div>
+                <div class="team-member">
+                    <h4>James Thompson</h4>
+                    <p>Global Operations Manager</p>
+                    <p class="team-member-bio">Strategic leader ensuring seamless operations across our international markets and maintaining our commitment to excellence worldwide.</p>
+                </div>
+                <div class="team-member">
+                    <h4>Amira Khalil</h4>
+                    <p>Head of Customer Experience</p>
+                    <p class="team-member-bio">Passionate about creating exceptional experiences for every client. Amira leads our customer service and bespoke consultation services.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us -->
+        <section class="about-section">
+            <h2>Why Choose Mohsen Ghohary</h2>
+            <p><strong>Uncompromising Quality:</strong> Every piece undergoes rigorous quality control. We use only the finest materials sourced from around the world.</p>
+            
+            <p><strong>Timeless Design:</strong> Our pieces are designed to be cherished for decades. We create fashion investments, not seasonal trends.</p>
+            
+            <p><strong>Exclusive Collections:</strong> Limited production ensures exclusivity. When you wear Mohsen Ghohary, you're part of an elite group of connoisseurs.</p>
+            
+            <p><strong>Personalized Service:</strong> Our bespoke consultation service helps you find pieces that perfectly match your style and vision.</p>
+            
+            <p><strong>Heritage & Innovation:</strong> We honor luxury traditions while embracing contemporary innovation and design excellence.</p>
+            
+            <p><strong>Ethical Luxury:</strong> We believe in responsibility. Our commitment to sustainability ensures luxury that you can feel good about.</p>
+        </section>
+
+        <!-- Contact CTA -->
+        <section class="about-section" style="text-align: center; border: 2px solid var(--primary-color); padding: 3rem; background: var(--light-gray);">
+            <h2 style="border: none; padding: 0; margin-bottom: 1rem;">Get in Touch</h2>
+            <p>Have questions? Want to explore our collections or discuss custom designs? We'd love to hear from you.</p>
+            <a href="index.html#contact" class="cta-button" style="margin-top: 1rem;">Contact Us</a>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Customer Service</h4>
+                <a href="#">Contact Us</a>
+                <a href="#">Shipping Info</a>
+                <a href="#">Returns & Exchanges</a>
+                <a href="#">Size Guide</a>
+            </div>
+            <div class="footer-section">
+                <h4>About</h4>
+                <a href="about.html">Our Story</a>
+                <a href="#">Craftsmanship</a>
+                <a href="#">Sustainability</a>
+                <a href="#">Careers</a>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms & Conditions</a>
+                <a href="#">Cookie Policy</a>
+                <a href="#">Accessibility</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Mohsen Ghohary. All rights reserved.</p>
+            <p style="margin-top: 1rem;">Follow us on Instagram • Facebook • LinkedIn</p>
+        </div>
+    </footer>
+
+    <script>
+        // Menu Toggle Functions
+        function toggleMenu() {
+            const hamburger = document.querySelector('.hamburger-menu');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            if (hamburger && mobileMenu) {
+                hamburger.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            }
+        }
+
+        function closeMenu() {
+            const hamburger = document.querySelector('.hamburger-menu');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            if (hamburger && mobileMenu) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            }
+        }
+
+        // Load header from header.html
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+                
+                // After header is loaded, attach menu event listeners
+                const hamburger = document.querySelector('.hamburger-menu');
+                if (hamburger) {
+                    hamburger.addEventListener('click', toggleMenu);
+                }
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    const mobileMenu = document.getElementById('mobileMenu');
+                    if (hamburger && mobileMenu) {
+                        if (!hamburger.contains(event.target) && !mobileMenu.contains(event.target)) {
+                            closeMenu();
+                        }
+                    }
+                });
+            });
+
+        // Cart functions
+        let cartItems = [];
+
+        function openCart() {
+            window.location.href = 'checkout.html';
+        }
+
+        function loadCartFromStorage() {
+            const savedCart = localStorage.getItem('mohsenCart');
+            if (savedCart) {
+                cartItems = JSON.parse(savedCart);
+                updateCartBadge();
+            }
+        }
+
+        function updateCartBadge() {
+            const cartBadge = document.getElementById('cartBadge');
+            if (cartBadge) {
+                if (cartItems.length > 0) {
+                    cartBadge.textContent = cartItems.length;
+                    cartBadge.style.display = 'flex';
+                } else {
+                    cartBadge.style.display = 'none';
+                }
+            }
+        }
+
+        // Load cart and menu on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadCartFromStorage();
+        });
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>

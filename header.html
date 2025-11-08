@@ -1,0 +1,139 @@
+<!-- Header -->
+<header>
+    <div class="header-wrapper">
+        <div class="header-top">
+            <div class="header-left">
+                <button class="menu-toggle" onclick="window.toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <button class="search-toggle" onclick="window.openSearch()" title="Search">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <!-- Circle -->
+                        <circle cx="11" cy="11" r="8"/>
+                        <!-- Line -->
+                        <path d="M21 21l-4.35-4.35"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <a href="index.html" class="brand-logo">MOHSEN GHOHARY</a>
+            
+            <div class="header-right">
+                <button class="account-toggle" onclick="window.openAccount()" title="My Account">
+                    <svg class="account-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <!-- Head -->
+                        <circle cx="12" cy="8" r="4"/>
+                        <!-- Body -->
+                        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+                    </svg>
+                </button>
+
+                <button class="cart-toggle" onclick="window.openCart()" title="Shopping Bag">
+                    <svg class="bag-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <!-- Bag handles -->
+                        <path d="M9 3C9 1.89543 9.89543 1 11 1H13C14.1046 1 15 1.89543 15 3V5H9V3Z"/>
+                        
+                        <!-- Main bag body -->
+                        <path d="M6 5H18C19.1046 5 20 5.89543 20 7V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18V7C4 5.89543 4.89543 5 6 5Z"/>
+                        
+                        <!-- Vertical lines for depth -->
+                        <line x1="9" y1="5" x2="9" y2="20"/>
+                        <line x1="15" y1="5" x2="15" y2="20"/>
+                    </svg>
+                    <span class="badge" id="cartBadge"></span>
+                </button>
+            </div>
+        </div>
+
+        <nav class="nav-bar">
+            <ul class="nav-desktop">
+                <li><a href="couture.html">Collections</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <nav class="nav-mobile" id="mobileMenu">
+        <ul>
+            <li><a href="couture.html" onclick="window.closeMenu()">Collections</a></li>
+            <li><a href="index.html#about" onclick="window.closeMenu()">About</a></li>
+            <li><a href="index.html#contact" onclick="window.closeMenu()">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="cart-modal" style="display: none;">
+        <div class="modal-content">
+            <button class="close-btn" onclick="document.getElementById('cartModal').style.display='none'">&times;</button>
+            <h2>Shopping Bag</h2>
+            <div id="cartItems"></div>
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="cart.html" class="btn-checkout">View Full Cart</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<script>
+    // Make functions available globally
+    window.toggleMenu = function() {
+        const menu = document.getElementById('mobileMenu');
+        if (menu) {
+            menu.classList.toggle('active');
+        }
+    };
+
+    window.closeMenu = function() {
+        const menu = document.getElementById('mobileMenu');
+        if (menu) {
+            menu.classList.remove('active');
+        }
+    };
+
+    window.openCart = function(e) {
+        if (e) e.preventDefault();
+        // Load cart content without reloading page
+        fetch('cart.html')
+            .then(response => response.text())
+            .then(html => {
+                // Extract body content
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const cartContainer = doc.querySelector('.cart-container') || doc.querySelector('body').innerHTML;
+                document.body.innerHTML = document.querySelector('header').outerHTML + '<div>' + cartContainer + '</div>';
+                window.scrollTo(0, 0);
+            });
+    };
+
+    window.openAccount = function(e) {
+        if (e) e.preventDefault();
+        // Load account content without reloading page
+        fetch('account.html')
+            .then(response => response.text())
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const accountContainer = doc.querySelector('.account-container') || doc.querySelector('body').innerHTML;
+                document.body.innerHTML = document.querySelector('header').outerHTML + '<div>' + accountContainer + '</div>';
+                window.scrollTo(0, 0);
+            });
+    };
+
+    window.openSearch = function(e) {
+        if (e) e.preventDefault();
+        // Load search content without reloading page
+        fetch('search.html')
+            .then(response => response.text())
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const searchContainer = doc.querySelector('.search-container') || doc.querySelector('body').innerHTML;
+                document.body.innerHTML = document.querySelector('header').outerHTML + '<div>' + searchContainer + '</div>';
+                window.scrollTo(0, 0);
+            });
+    };
+</script>

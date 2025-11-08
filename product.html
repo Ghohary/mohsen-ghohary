@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product - Mohsen Ghohary</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .product-detail-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .product-detail-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .product-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .main-image {
+            width: 100%;
+            height: 600px;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .thumbnail-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 0.8rem;
+        }
+
+        .thumbnail {
+            width: 100%;
+            height: 100px;
+            background: #f5f5f5;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .thumbnail:hover,
+        .thumbnail.active {
+            border-color: #000;
+        }
+
+        .product-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-header {
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #000;
+            padding-bottom: 2rem;
+        }
+
+        .product-category {
+            font-size: 0.8rem;
+            color: #999;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-name {
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            color: #000;
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #000;
+        }
+
+        .product-description {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .product-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            color: #000;
+        }
+
+        .colors-container {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .color-option {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 3px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .color-option:hover,
+        .color-option.selected {
+            border-color: #000;
+            transform: scale(1.1);
+        }
+
+        .sizes-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+            gap: 0.8rem;
+        }
+
+        .size-option {
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .size-option:hover,
+        .size-option.selected {
+            border-color: #000;
+            background: #000;
+            color: #fff;
+        }
+
+        .size-option.out-of-stock {
+            background: #f5f5f5;
+            color: #999;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .add-to-cart-section {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .add-to-cart-btn {
+            flex: 1;
+            padding: 1.2rem;
+            background: #000;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .add-to-cart-btn:hover {
+            background: #333;
+        }
+
+        .add-to-cart-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .wishlist-btn {
+            padding: 1.2rem 2rem;
+            background: #fff;
+            color: #000;
+            border: 2px solid #000;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .wishlist-btn:hover {
+            background: #000;
+            color: #fff;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            color: #000;
+        }
+
+        @media (max-width: 768px) {
+            .product-detail-container {
+                padding: 2rem 1rem;
+            }
+
+            .product-detail-wrapper {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .main-image {
+                height: 400px;
+            }
+
+            .product-name {
+                font-size: 1.5rem;
+            }
+
+            .add-to-cart-section {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="header-container"></div>
+
+    <div class="product-detail-container">
+        <a href="couture.html" class="back-link">← Back to Collections</a>
+
+        <div id="productContent"></div>
+    </div>
+
+    <script>
+        let allProducts = [];
+        let currentProduct = null;
+        let selectedColor = null;
+        let selectedSize = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProducts();
+            displayProduct();
+        });
+
+        function loadProducts() {
+            const saved = localStorage.getItem('mohsenProducts');
+            allProducts = saved ? JSON.parse(saved) : [];
+        }
+
+        function getProductIdFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            return parseInt(params.get('id'));
+        }
+
+        function displayProduct() {
+            const productId = getProductIdFromURL();
+            currentProduct = allProducts.find(p => p.id === productId);
+
+            if (!currentProduct) {
+                document.getElementById('productContent').innerHTML = `
+                    <div style="text-align: center; padding: 4rem 2rem;">
+                        <h2>Product not found</h2>
+                        <a href="couture.html" style="color: #000; text-decoration: underline;">Back to Collections</a>
+                    </div>
+                `;
+                return;
+            }
+
+            document.title = currentProduct.name + ' - Mohsen Ghohary';
+
+            console.log('Product loaded:', currentProduct);
+            console.log('Sizes:', currentProduct.sizes);
+
+            let sizeOptionsHTML = '';
+            if (currentProduct.sizes && currentProduct.sizes.length > 0) {
+                sizeOptionsHTML = `
+                    <div class="product-section">
+                        <div class="section-title">Select Size</div>
+                        <div class="sizes-container">
+                            ${currentProduct.sizes.map((size) => {
+                                const isOutOfStock = size.outOfStock;
+                                return `<div class="size-option ${isOutOfStock ? 'out-of-stock' : ''}" ${isOutOfStock ? 'disabled' : `onclick="selectSize('${size.size}', this)"`}>${size.size}</div>`;
+                            }).join('')}
+                        </div>
+                    </div>
+                `;
+            } else {
+                sizeOptionsHTML = `<div style="color: #999; font-size: 0.9rem;">No sizes available</div>`;
+            }
+
+            let colorOptionsHTML = '';
+            if (currentProduct.colors && currentProduct.colors.length > 0) {
+                colorOptionsHTML = `
+                    <div class="product-section">
+                        <div class="section-title">Select Color</div>
+                        <div class="colors-container">
+                            ${currentProduct.colors.map(color => `
+                                <div class="color-option" 
+                                     style="background-color: ${color.hex}" 
+                                     onclick="selectColor('${color.name}', this)"
+                                     title="${color.name}">
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            const productHTML = `
+                <div class="product-detail-wrapper">
+                    <div class="product-gallery">
+                        <div class="main-image">
+                            <img id="mainImage" src="${currentProduct.images[0]}" alt="${currentProduct.name}">
+                        </div>
+                        <div class="thumbnail-gallery">
+                            ${currentProduct.images.map((img, index) => `
+                                <div class="thumbnail ${index === 0 ? 'active' : ''}" onclick="changeMainImage('${img}', this)">
+                                    <img src="${img}" alt="Image ${index + 1}">
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="product-details">
+                        <div class="product-header">
+                            <div class="product-category">${currentProduct.category}</div>
+                            <h1 class="product-name">${currentProduct.name}</h1>
+                            <div class="product-price">${currentProduct.price ? 'AED ' + currentProduct.price : 'Price on Request'}</div>
+                        </div>
+
+                        <p class="product-description">${currentProduct.description}</p>
+
+                        ${colorOptionsHTML}
+                        ${sizeOptionsHTML}
+
+                        <div class="add-to-cart-section">
+                            <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+                            <button class="wishlist-btn" onclick="addToWishlist()">❤ Wishlist</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('productContent').innerHTML = productHTML;
+        }
+
+        function changeMainImage(src, element) {
+            document.getElementById('mainImage').src = src;
+            document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        function selectColor(colorName, element) {
+            selectedColor = colorName;
+            document.querySelectorAll('.color-option').forEach(c => c.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        function selectSize(size, element) {
+            selectedSize = size;
+            document.querySelectorAll('.size-option').forEach(s => s.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        function addToCart() {
+            console.log('Add to cart clicked');
+            console.log('Current product:', currentProduct);
+            
+            let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+            
+            const cartItem = {
+                name: currentProduct.name,
+                price: currentProduct.price || 'Price on Request',
+                color: selectedColor,
+                size: selectedSize,
+                image: currentProduct.images[0],
+                id: Date.now()
+            };
+
+            cartItems.push(cartItem);
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            console.log('Item added to cart:', cartItem);
+            updateCartBadge();
+            showNotification(`✓ ${currentProduct.name} added to cart`);
+        }
+
+        function addToWishlist() {
+            console.log('Wishlist clicked');
+            let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+            
+            if (!wishlist.find(p => p.id === currentProduct.id)) {
+                wishlist.push(currentProduct);
+                localStorage.setItem('wishlist', JSON.stringify(wishlist));
+                alert('❤ Added to wishlist!');
+            } else {
+                alert('Already in wishlist');
+            }
+        }
+
+        function openCart() {
+            window.location.href = 'cart.html';
+        }
+
+        function closeCart() {
+            // No longer needed since cart is on separate page
+        }
+
+        function updateCartBadge() {
+            const cartBadge = document.getElementById('cartBadge');
+            if (cartBadge) {
+                const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+                if (cartItems.length > 0) {
+                    cartBadge.textContent = cartItems.length;
+                    cartBadge.style.display = 'flex';
+                } else {
+                    cartBadge.style.display = 'none';
+                }
+            }
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification success';
+            
+            notification.innerHTML = `
+                <div class="notification-header">
+                    <div class="notification-icon">✓</div>
+                    <div>
+                        <div class="notification-title">Item Added</div>
+                    </div>
+                </div>
+                <div class="notification-content">
+                    <p class="notification-text">${message}</p>
+                </div>
+                <div class="notification-footer"></div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        function goToCart() {
+            window.location.href = 'cart.html';
+        }
+
+
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const toggle = document.querySelector('.menu-toggle');
+            
+            if (menu && toggle) {
+                menu.classList.toggle('active');
+                toggle.classList.toggle('active');
+            }
+        }
+
+        function closeMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const toggle = document.querySelector('.menu-toggle');
+            
+            if (menu && toggle) {
+                menu.classList.remove('active');
+                toggle.classList.remove('active');
+            }
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('cartModal');
+            if (event.target == modal) {
+                closeCart();
+            }
+        }
+
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            })
+            .catch(e => console.log('Header not found'));
+    </script>
+</body>
+</html>

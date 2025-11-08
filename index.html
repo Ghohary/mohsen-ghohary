@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohsen Ghohary - Luxury Fashion</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="header-container"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Luxury Redefined</h1>
+            <p>Discover the Art of Timeless Fashion</p>
+            <button class="cta-button" onclick="scrollToProducts()">Explore Collection</button>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section" id="collections">
+        <h2 class="section-title">New Collections</h2>
+        <div class="products-grid" id="productsGrid">
+            <!-- Products will be generated here -->
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="about-content">
+            <h2 class="section-title">About Mohsen Ghohary</h2>
+            <p>Mohsen Ghohary represents the pinnacle of luxury fashion, combining timeless elegance with contemporary craftsmanship. Each collection is meticulously curated to reflect the essence of refined taste and sophisticated style.</p>
+            <p>From bespoke tailoring to exquisite accessories, every piece embodies our commitment to excellence and innovation in the world of haute couture.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Customer Service</h4>
+                <a href="#">Contact Us</a>
+                <a href="#">Shipping Info</a>
+                <a href="#">Returns & Exchanges</a>
+                <a href="#">Size Guide</a>
+            </div>
+            <div class="footer-section">
+                <h4>About</h4>
+                <a href="#">Our Story</a>
+                <a href="#">Craftsmanship</a>
+                <a href="#">Sustainability</a>
+                <a href="#">Careers</a>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms & Conditions</a>
+                <a href="#">Cookie Policy</a>
+                <a href="#">Accessibility</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Mohsen Ghohary. All rights reserved.</p>
+            <p style="margin-top: 1rem;">Follow us on Instagram • Facebook • LinkedIn</p>
+        </div>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeCart()">✕</button>
+            <h2 class="modal-title">Shopping Cart</h2>
+            <div id="cartItems" style="margin-bottom: 2rem; max-height: 400px; overflow-y: auto;"></div>
+            <div class="footer-bottom">
+                <div style="border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+                    <p style="font-size: 1.1rem; margin-bottom: 1.5rem;"><strong>Total: $0</strong></p>
+                    <button class="cta-button" style="width: 100%;">Proceed to Checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Menu Toggle Functions
+        function toggleMenu() {
+            const hamburger = document.querySelector('.hamburger-menu');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            if (hamburger && mobileMenu) {
+                hamburger.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            }
+        }
+
+        function closeMenu() {
+            const hamburger = document.querySelector('.hamburger-menu');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            if (hamburger && mobileMenu) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            }
+        }
+
+        // Load header from header.html
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+                
+                // After header is loaded, attach menu event listeners
+                const hamburger = document.querySelector('.hamburger-menu');
+                if (hamburger) {
+                    hamburger.addEventListener('click', toggleMenu);
+                }
+            });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const hamburger = document.querySelector('.hamburger-menu');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            if (hamburger && mobileMenu) {
+                if (!hamburger.contains(event.target) && !mobileMenu.contains(event.target)) {
+                    closeMenu();
+                }
+            }
+        });
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>

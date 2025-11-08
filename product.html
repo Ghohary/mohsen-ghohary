@@ -281,8 +281,14 @@
         });
 
         function loadProducts() {
-            const saved = localStorage.getItem('mohsenProducts');
-            allProducts = saved ? JSON.parse(saved) : [];
+            try {
+                const saved = localStorage.getItem('mohsenProducts');
+                allProducts = saved ? JSON.parse(saved) : [];
+                console.log('✅ Loaded ' + allProducts.length + ' products');
+            } catch (e) {
+                console.error('Error loading products:', e);
+                allProducts = [];
+            }
         }
 
         function getProductIdFromURL() {

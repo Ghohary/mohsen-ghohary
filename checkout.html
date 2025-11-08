@@ -351,8 +351,25 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="checkout-btn">Place Order</button>
+                    <button type="submit" class="checkout-btn" id="submitBtn">Place Order & Pay</button>
                 </form>
+            </div>
+
+            <!-- Stripe Payment Modal -->
+            <div id="paymentModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 2000; display: flex; align-items: center; justify-content: center;">
+                <div style="background: #fff; padding: 2rem; border-radius: 8px; max-width: 500px; width: 90%;">
+                    <h2 style="margin-top: 0;">Secure Payment</h2>
+                    <form id="payment-form">
+                        <div id="card-element" style="border: 1px solid #ddd; padding: 12px; border-radius: 4px; margin-bottom: 1rem;"></div>
+                        <div id="card-errors" style="color: #fa755a; margin-bottom: 1rem;"></div>
+                        <button id="submit-payment" type="submit" style="width: 100%; padding: 1rem; background: #000; color: #fff; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 0.9rem;">
+                            Pay AED <span id="paymentAmount">0</span>
+                        </button>
+                        <button type="button" onclick="closePaymentModal()" style="width: 100%; padding: 1rem; margin-top: 1rem; background: #f5f5f5; border: none; border-radius: 4px; cursor: pointer;">
+                            Cancel
+                        </button>
+                    </form>
+                </div>
             </div>
 
             <!-- Order Summary -->
@@ -502,6 +519,31 @@
             window.location.href = 'order-confirmation.html';
         }
 
+        let stripe;
+        let elements;
+        let cardElement;
+
+        async function initStripe() {
+            const publishableKey = 'pk_live_51PJIc4BINB8p2hP4l5Kl4BQp8ioC4IxA5Che1zBkqnRUt6DcaS2SVrytcQgzaPrse0LxF6Hv6742j1kkIyTFhYgO00iNAgFkek';
+            stripe = Stripe(publishableKey);
+            elements = stripe.elements();
+            cardElement = elements.create('card');
+            cardElement.mount('#card-element');
+
+            cardElement.addEventListener('change', function(event) {
+                const displayError = document.getElementById('card-errors');
+                if (event.error) {
+                    displayError.textContent = event.error.message;
+                } else {
+                    displayError.textContent = '';
+                }
+            });
+        }
+
+        function closePaymentModal() {
+            document.getElementById('paymentModal').style.display = 'none';
+        }
+
         function toggleMenu() {
             const menu = document.getElementById('mobileMenu');
             const toggle = document.querySelector('.menu-toggle');
@@ -528,6 +570,10 @@
                 document.getElementById('header-container').innerHTML = data;
             })
             .catch(e => console.log('Header not found'));
+    </script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', initStripe);
     </script>
 </body>
 </html>

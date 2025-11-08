@@ -372,49 +372,21 @@
         let currentSort = 'featured';
 
         function loadProducts() {
-            return new Promise((resolve) => {
-                // Try to load from IndexedDB first (from admin)
-                const request = indexedDB.open('GhoharyDB', 1);
-                
-                request.onsuccess = () => {
-                    const db = request.result;
-                    if (db.objectStoreNames.contains('products')) {
-                        const transaction = db.transaction(['products'], 'readonly');
-                        const store = transaction.objectStore('products');
-                        const getAllRequest = store.getAll();
-
-                        getAllRequest.onsuccess = () => {
-                            products = getAllRequest.result;
-                            filteredProducts = products;
-                            if (products.length === 0) {
-                                // Fallback to localStorage if no IndexedDB data
-                                const saved = localStorage.getItem('mohsenProducts');
-                                products = saved ? JSON.parse(saved) : [];
-                                filteredProducts = products;
-                            }
-                            console.log('✅ Loaded ' + products.length + ' products');
-                            resolve();
-                        };
-                    } else {
-                        const saved = localStorage.getItem('mohsenProducts');
-                        products = saved ? JSON.parse(saved) : [];
-                        filteredProducts = products;
-                        resolve();
-                    }
-                };
-
-                request.onerror = () => {
-                    const saved = localStorage.getItem('mohsenProducts');
-                    products = saved ? JSON.parse(saved) : [];
-                    filteredProducts = products;
-                    resolve();
-                };
-            });
+            try {
+                const saved = localStorage.getItem('mohsenProducts');
+                products = saved ? JSON.parse(saved) : [];
+                filteredProducts = products;
+                console.log('✅ Loaded ' + products.length + ' products');
+            } catch (e) {
+                console.error('Error loading products:', e);
+                products = [];
+                filteredProducts = [];
+            }
         }
 
         // Initialize on page load
-        document.addEventListener('DOMContentLoaded', async () => {
-            await loadProducts();
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProducts();
             displayProducts();
         });
 

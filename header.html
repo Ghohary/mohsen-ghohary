@@ -1,139 +1,487 @@
-<!-- Header -->
-<header>
-    <div class="header-wrapper">
-        <div class="header-top">
-            <div class="header-left">
-                <button class="menu-toggle" onclick="window.toggleMenu()">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
+<header class="luxury-header">
+    <!-- Top Announcement Bar -->
+    <div class="announcement-bar">
+        <p>✨ Discover Our Latest Couture Collection • Free Delivery on Orders Over AED 500</p>
+    </div>
 
-                <button class="search-toggle" onclick="window.openSearch()" title="Search">
-                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <!-- Circle -->
-                        <circle cx="11" cy="11" r="8"/>
-                        <!-- Line -->
-                        <path d="M21 21l-4.35-4.35"/>
-                    </svg>
-                </button>
-            </div>
-            
-            <a href="index.html" class="brand-logo">MOHSEN GHOHARY</a>
-            
-            <div class="header-right">
-                <button class="account-toggle" onclick="window.openAccount()" title="My Account">
-                    <svg class="account-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <!-- Head -->
-                        <circle cx="12" cy="8" r="4"/>
-                        <!-- Body -->
-                        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-                    </svg>
-                </button>
-
-                <button class="cart-toggle" onclick="window.openCart()" title="Shopping Bag">
-                    <svg class="bag-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <!-- Bag handles -->
-                        <path d="M9 3C9 1.89543 9.89543 1 11 1H13C14.1046 1 15 1.89543 15 3V5H9V3Z"/>
-                        
-                        <!-- Main bag body -->
-                        <path d="M6 5H18C19.1046 5 20 5.89543 20 7V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18V7C4 5.89543 4.89543 5 6 5Z"/>
-                        
-                        <!-- Vertical lines for depth -->
-                        <line x1="9" y1="5" x2="9" y2="20"/>
-                        <line x1="15" y1="5" x2="15" y2="20"/>
-                    </svg>
-                    <span class="badge" id="cartBadge"></span>
-                </button>
-            </div>
+    <!-- Main Header -->
+    <div class="header-main">
+        <!-- Logo (Center) -->
+        <div class="logo">
+            <a href="index.html" class="logo-text">
+                <span class="logo-primary">Ghohary</span>
+                <span class="logo-secondary">Readymade Garments</span>
+            </a>
         </div>
 
-        <nav class="nav-bar">
-            <ul class="nav-desktop">
-                <li><a href="couture.html">Collections</a></li>
-                <li><a href="index.html#about">About</a></li>
-                <li><a href="index.html#contact">Contact</a></li>
-            </ul>
+        <!-- Left Navigation -->
+        <nav class="nav-left">
+            <a href="couture.html" class="nav-link">Couture</a>
+            <a href="#" class="nav-link">Collections</a>
+            <a href="#" class="nav-link">About</a>
+        </nav>
+
+        <!-- Right Navigation -->
+        <nav class="nav-right">
+            <button class="icon-btn" onclick="openSearch()" title="Search">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+            </button>
+            <button class="icon-btn" onclick="openAccount()" title="Account">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </button>
+            <button class="icon-btn cart-btn" onclick="openCart()" title="Shopping Bag">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                <span class="cart-badge" id="cartBadge" style="display: none;">0</span>
+            </button>
+            <button class="hamburger-menu" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </nav>
     </div>
 
-    <nav class="nav-mobile" id="mobileMenu">
-        <ul>
-            <li><a href="couture.html" onclick="window.closeMenu()">Collections</a></li>
-            <li><a href="index.html#about" onclick="window.closeMenu()">About</a></li>
-            <li><a href="index.html#contact" onclick="window.closeMenu()">Contact</a></li>
-        </ul>
+    <!-- Mobile Menu -->
+    <nav class="mobile-menu" id="mobileMenu">
+        <a href="index.html" class="mobile-menu-link">Home</a>
+        <a href="couture.html" class="mobile-menu-link">Couture</a>
+        <a href="#" class="mobile-menu-link">Collections</a>
+        <a href="#" class="mobile-menu-link">About</a>
+        <a href="#" class="mobile-menu-link">Contact</a>
+        <hr style="margin: 1rem 0; border: none; border-top: 1px solid #e8e8e8;">
+        <a href="#" class="mobile-menu-link">Account</a>
+        <a href="cart.html" class="mobile-menu-link">Shopping Bag</a>
     </nav>
-
-    <!-- Cart Modal -->
-    <div id="cartModal" class="cart-modal" style="display: none;">
-        <div class="modal-content">
-            <button class="close-btn" onclick="document.getElementById('cartModal').style.display='none'">&times;</button>
-            <h2>Shopping Bag</h2>
-            <div id="cartItems"></div>
-            <div style="text-align: center; margin-top: 2rem;">
-                <a href="cart.html" class="btn-checkout">View Full Cart</a>
-            </div>
-        </div>
-    </div>
 </header>
 
+<style>
+    :root {
+        --primary-color: #000;
+        --secondary-color: #fff;
+        --accent-color: #d4af37;
+        --border-color: #e8e8e8;
+        --text-color: #333;
+        --light-text: #666;
+    }
+
+    .luxury-header {
+        background: #fff;
+        border-bottom: 1px solid var(--border-color);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Announcement Bar */
+    .announcement-bar {
+        background: var(--primary-color);
+        color: var(--secondary-color);
+        text-align: center;
+        padding: 0.8rem;
+        font-size: 0.8rem;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+    }
+
+    .announcement-bar p {
+        margin: 0;
+    }
+
+    /* Main Header */
+    .header-main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1.5rem 2rem;
+        max-width: 1600px;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    /* Navigation */
+    .nav-left, .nav-right {
+        display: flex;
+        gap: 3rem;
+        align-items: center;
+    }
+
+    .nav-left {
+        position: absolute;
+        left: 2rem;
+        flex: 0;
+    }
+
+    .nav-right {
+        position: absolute;
+        right: 2rem;
+        flex: 0;
+    }
+
+    .nav-link {
+        color: var(--text-color);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        transition: all 0.3s;
+        position: relative;
+        padding-bottom: 0.5rem;
+    }
+
+    .nav-link:hover {
+        color: var(--primary-color);
+    }
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 1.5px;
+        background: var(--accent-color);
+        transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+        width: 100%;
+    }
+
+    /* Logo */
+    .logo {
+        flex: 0 1 auto;
+        text-align: center;
+        z-index: 100;
+    }
+
+    .logo-text {
+        text-decoration: none;
+        color: var(--primary-color);
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+
+    .logo-primary {
+        font-size: 1.6rem;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+    }
+
+    .logo-secondary {
+        font-size: 0.65rem;
+        font-weight: 500;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--light-text);
+    }
+
+    /* Icon Buttons */
+    .icon-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--primary-color);
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        position: relative;
+    }
+
+    .icon-btn:hover {
+        background: #f5f5f5;
+        transform: scale(1.05);
+    }
+
+    .cart-badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: var(--accent-color);
+        color: var(--primary-color);
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.7rem;
+        font-weight: 700;
+    }
+
+    /* Hamburger Menu */
+    .hamburger-menu {
+        display: none;
+        flex-direction: column;
+        background: none;
+        border: none;
+        cursor: pointer;
+        gap: 5px;
+    }
+
+    .hamburger-menu span {
+        width: 24px;
+        height: 2px;
+        background: var(--primary-color);
+        transition: all 0.3s;
+    }
+
+    .hamburger-menu.active span:nth-child(1) {
+        transform: rotate(45deg) translate(10px, 10px);
+    }
+
+    .hamburger-menu.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger-menu.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(8px, -8px);
+    }
+
+    /* Mobile Menu */
+    .mobile-menu {
+        display: none;
+        flex-direction: column;
+        background: var(--secondary-color);
+        border-top: 1px solid var(--border-color);
+        padding: 1.5rem 2rem;
+        gap: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    .mobile-menu.active {
+        max-height: 500px;
+    }
+
+    .mobile-menu-link {
+        color: var(--text-color);
+        text-decoration: none;
+        padding: 0.8rem 0;
+        font-size: 0.9rem;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        transition: all 0.3s;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .mobile-menu-link:last-of-type {
+        border-bottom: none;
+    }
+
+    .mobile-menu-link:hover {
+        color: var(--accent-color);
+        padding-left: 0.5rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+        .header-main {
+            padding: 1rem 1.5rem;
+        }
+
+        .nav-left {
+            left: 1.5rem;
+            gap: 1.5rem;
+        }
+
+        .nav-right {
+            right: 1.5rem;
+        }
+
+        .nav-link {
+            font-size: 0.8rem;
+        }
+
+        .logo-primary {
+            font-size: 1.2rem;
+        }
+
+        .logo-secondary {
+            font-size: 0.6rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .announcement-bar {
+            padding: 0.6rem;
+            font-size: 0.7rem;
+        }
+
+        .header-main {
+            padding: 1rem 1rem;
+            gap: 0.5rem;
+        }
+
+        .nav-left {
+            display: none;
+        }
+
+        .nav-right {
+            right: 1rem;
+            gap: 0.8rem;
+        }
+
+        .hamburger-menu {
+            display: flex;
+        }
+
+        .mobile-menu {
+            display: flex;
+        }
+
+        .logo-primary {
+            font-size: 1.1rem;
+        }
+
+        .logo-secondary {
+            font-size: 0.55rem;
+        }
+
+        .icon-btn {
+            width: 36px;
+            height: 36px;
+        }
+
+        .icon-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .announcement-bar {
+            padding: 0.5rem;
+            font-size: 0.65rem;
+        }
+
+        .announcement-bar p {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .header-main {
+            padding: 0.8rem 0.5rem;
+        }
+
+        .nav-right {
+            right: 0.5rem;
+            gap: 0.4rem;
+        }
+
+        .logo-primary {
+            font-size: 1rem;
+        }
+
+        .logo-secondary {
+            font-size: 0.5rem;
+        }
+
+        .icon-btn {
+            width: 32px;
+            height: 32px;
+        }
+
+        .icon-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .cart-badge {
+            width: 18px;
+            height: 18px;
+            font-size: 0.6rem;
+        }
+    }
+</style>
+
 <script>
-    // Make functions available globally
-    window.toggleMenu = function() {
+    function toggleMenu() {
         const menu = document.getElementById('mobileMenu');
+        const hamburger = document.querySelector('.hamburger-menu');
+        
         if (menu) {
             menu.classList.toggle('active');
         }
-    };
+        if (hamburger) {
+            hamburger.classList.toggle('active');
+        }
+    }
 
-    window.closeMenu = function() {
+    function closeMenu() {
         const menu = document.getElementById('mobileMenu');
+        const hamburger = document.querySelector('.hamburger-menu');
+        
         if (menu) {
             menu.classList.remove('active');
         }
-    };
+        if (hamburger) {
+            hamburger.classList.remove('active');
+        }
+    }
 
-    window.openCart = function(e) {
-        if (e) e.preventDefault();
-        // Load cart content without reloading page
-        fetch('cart.html')
-            .then(response => response.text())
-            .then(html => {
-                // Extract body content
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                const cartContainer = doc.querySelector('.cart-container') || doc.querySelector('body').innerHTML;
-                document.body.innerHTML = document.querySelector('header').outerHTML + '<div>' + cartContainer + '</div>';
-                window.scrollTo(0, 0);
-            });
-    };
+    function openSearch() {
+        alert('Search functionality coming soon!');
+        closeMenu();
+    }
 
-    window.openAccount = function(e) {
-        if (e) e.preventDefault();
-        // Load account content without reloading page
-        fetch('account.html')
-            .then(response => response.text())
-            .then(html => {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                const accountContainer = doc.querySelector('.account-container') || doc.querySelector('body').innerHTML;
-                document.body.innerHTML = document.querySelector('header').outerHTML + '<div>' + accountContainer + '</div>';
-                window.scrollTo(0, 0);
-            });
-    };
+    function openAccount() {
+        window.location.href = 'account.html';
+    }
 
-    window.openSearch = function(e) {
-        if (e) e.preventDefault();
-        // Load search content without reloading page
-        fetch('search.html')
-            .then(response => response.text())
-            .then(html => {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                const searchContainer = doc.querySelector('.search-container') || doc.querySelector('body').innerHTML;
-                document.body.innerHTML = document.querySelector('header').outerHTML + '<div>' + searchContainer + '</div>';
-                window.scrollTo(0, 0);
-            });
-    };
+    function openCart() {
+        window.location.href = 'cart.html';
+    }
+
+    // Update cart badge
+    function updateCartBadge() {
+        const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+        const badge = document.getElementById('cartBadge');
+        if (badge) {
+            if (cartItems.length > 0) {
+                badge.textContent = cartItems.length;
+                badge.style.display = 'flex';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+    }
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        const menu = document.getElementById('mobileMenu');
+        const hamburger = document.querySelector('.hamburger-menu');
+        const header = document.querySelector('.luxury-header');
+
+        if (header && !header.contains(e.target)) {
+            closeMenu();
+        }
+    });
+
+    // Update cart badge on page load
+    document.addEventListener('DOMContentLoaded', updateCartBadge);
+
+    // Update cart badge when cart changes
+    window.addEventListener('storage', updateCartBadge);
 </script>

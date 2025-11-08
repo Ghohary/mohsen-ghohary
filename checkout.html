@@ -406,6 +406,33 @@
             setTimeout(initStripe, 100);
         });
 
+        // Header icon functions
+        window.toggleMenu = function() {
+            const menu = document.getElementById('mobileMenu');
+            if (menu) {
+                menu.classList.toggle('active');
+            }
+        };
+
+        window.closeMenu = function() {
+            const menu = document.getElementById('mobileMenu');
+            if (menu) {
+                menu.classList.remove('active');
+            }
+        };
+
+        window.openCart = function() {
+            window.location.href = 'cart.html';
+        };
+
+        window.openAccount = function() {
+            window.location.href = 'account.html';
+        };
+
+        window.openSearch = function() {
+            window.location.href = 'search.html';
+        };
+
         function loadCart() {
             cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
             displayOrderSummary();

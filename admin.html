@@ -683,8 +683,11 @@
 
             <div class="form-row full">
                 <div class="form-group">
-                    <label>Product Images <span style="color: #999;">(Required)</span></label>
+                    <label>Product Images <span style="color: #999;">(Upload file OR paste image URL)</span></label>
                     <input type="file" id="productImage" accept="image/*" multiple>
+                    <div style="margin: 1rem 0; text-align: center; color: #999;">— OR —</div>
+                    <input type="url" id="productImageUrl" placeholder="Paste image URL here (e.g., https://images.unsplash.com/...)" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 4px; font-size: 0.9rem;">
+                    <small style="display: block; margin-top: 0.5rem; color: #999;">Get free images from: unsplash.com, pexels.com, or pixabay.com</small>
                     <div class="images-preview" id="imagesPreview"></div>
                 </div>
             </div>
@@ -999,14 +1002,16 @@
         function createProduct() {
             const nameInput = document.getElementById('productName');
             const name = nameInput ? nameInput.value.trim() : '';
+            const imageUrlInput = document.getElementById('productImageUrl');
+            const imageUrl = imageUrlInput ? imageUrlInput.value.trim() : '';
             
             if (!name) {
                 alert('❌ Product name is required');
                 return;
             }
             
-            if (uploadedImages.length === 0) {
-                alert('❌ Please upload at least one image');
+            if (uploadedImages.length === 0 && !imageUrl) {
+                alert('❌ Please either upload an image or paste an image URL (e.g., from unsplash.com)');
                 return;
             }
 

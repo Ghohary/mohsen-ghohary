@@ -371,41 +371,52 @@
         let currentCategory = '';
         let currentSort = 'featured';
 
-        document.addEventListener('DOMContentLoaded', () => {
-            loadProducts();
-            displayProducts();
-            
-            // Close menus when clicking outside
-            document.addEventListener('click', function(event) {
-                if (!event.target.closest('.filter-group')) {
-                    document.querySelectorAll('.filter-menu.active').forEach(menu => {
-                        menu.classList.remove('active');
-                    });
-                    document.querySelectorAll('.filter-button.active').forEach(btn => {
-                        btn.classList.remove('active');
-                    });
-                }
-            });
-        });
-
         function loadProducts() {
-            const saved = localStorage.getItem('mohsenProducts');
-            if (saved) {
-                products = JSON.parse(saved);
-            } else {
-                // Default products
-                products = [
-                    { id: 1, name: 'Elegant Black Gown', category: 'Evening Wear', price: '2500', description: 'Luxurious black evening gown' },
-                    { id: 2, name: 'White Pearl Dress', category: 'Casual', price: '1800', description: 'Elegant white casual dress' },
-                    { id: 3, name: 'Gold Sequin Saree', category: 'Traditional', price: '3200', description: 'Beautiful gold sequined saree' },
-                    { id: 4, name: 'Navy Blue Abaya', category: 'Abayas', price: '1200', description: 'Sophisticated navy abaya' },
-                    { id: 5, name: 'Silk Embroidered Dress', category: 'Formal', price: '2800', description: 'Fine silk with intricate embroidery' },
-                    { id: 6, name: 'Pastel Pink Gown', category: 'Evening Wear', price: '2200', description: 'Soft pastel pink evening gown' }
-                ];
-                localStorage.setItem('mohsenProducts', JSON.stringify(products));
-            }
-            filteredProducts = products;
+            return new Promise((resolve) => {
+                // Try to load from IndexedDB first (from admin)
+                const request = indexedDB.open('GhoharyDB', 1);
+                
+                request.onsuccess = () => {
+                    const db = request.result;
+                    if (db.objectStoreNames.contains('products')) {
+                        const transaction = db.transaction(['products'], 'readonly');
+                        const store = transaction.objectStore('products');
+                        const getAllRequest = store.getAll();
+
+                        getAllRequest.onsuccess = () => {
+                            products = getAllRequest.result;
+                            filteredProducts = products;
+                            if (products.length === 0) {
+                                // Fallback to localStorage if no IndexedDB data
+                                const saved = localStorage.getItem('mohsenProducts');
+                                products = saved ? JSON.parse(saved) : [];
+                                filteredProducts = products;
+                            }
+                            console.log('✅ Loaded ' + products.length + ' products');
+                            resolve();
+                        };
+                    } else {
+                        const saved = localStorage.getItem('mohsenProducts');
+                        products = saved ? JSON.parse(saved) : [];
+                        filteredProducts = products;
+                        resolve();
+                    }
+                };
+
+                request.onerror = () => {
+                    const saved = localStorage.getItem('mohsenProducts');
+                    products = saved ? JSON.parse(saved) : [];
+                    filteredProducts = products;
+                    resolve();
+                };
+            });
         }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadProducts();
+            displayProducts();
+        });
 
         function toggleMenu(menuId) {
             const menu = document.getElementById(menuId);

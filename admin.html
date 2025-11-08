@@ -984,6 +984,19 @@
             try {
                 const saved = localStorage.getItem('mohsenProducts');
                 products = saved ? JSON.parse(saved) : [];
+                
+                // Validate all products have required fields
+                products = products.filter(p => p && typeof p === 'object').map(p => ({
+                    id: p.id || Date.now(),
+                    name: p.name || 'Unnamed Product',
+                    category: p.category || 'Uncategorized',
+                    price: p.price || '0',
+                    description: p.description || '',
+                    images: Array.isArray(p.images) ? p.images : [],
+                    sizes: Array.isArray(p.sizes) ? p.sizes : [],
+                    inventory: typeof p.inventory === 'object' ? p.inventory : {}
+                }));
+                
                 allProducts = products;
                 console.log('✅ Loaded ' + products.length + ' products');
             } catch (e) {
@@ -1001,43 +1014,63 @@
         function renderProductsList(productsToShow) {
             const list = document.getElementById('productsList');
 
-            if (productsToShow.length === 0) {
+            if (!productsToShow || productsToShow.length === 0) {
                 list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📦</div><p>No products yet</p></div>';
                 return;
             }
 
-            list.innerHTML = productsToShow.map(product => {
-                const firstImage = product.images[0];
-                const imageCount = product.images.length;
-                const sizesText = product.sizes.join(', ');
+            try {
+                list.innerHTML = productsToShow.filter(p => p && typeof p === 'object').map(product => {
+                    const images = Array.isArray(product.images) ? product.images : [];
+                    const firstImage = images[0] || 'https://via.placeholder.com/400x300?text=No+Image';
+                    const imageCount = images.length;
+                    const sizes = Array.isArray(product.sizes) ? product.sizes : [];
 
-                return `
-                    <div class="product-card">
-                        <div class="product-image-section">
-                            <img class="product-image-main" src="${firstImage}" alt="${product.name}">
-                            <div class="image-counter">${imageCount} photos</div>
-                            ${imageCount > 1 ? '<div class="image-nav">' + product.images.map((_, i) => `<div class="image-dot${i === 0 ? ' active' : ''}" onclick=""></div>`).join('') + '</div>' : ''}
-                        </div>
-                        <div class="product-info">
-                            <div class="product-category">${product.category}</div>
-                            <div class="product-name">${product.name}</div>
-                            <div class="product-price">${product.price}</div>
-                            <div class="product-meta">
-                                <div><strong>Sizes</strong>${product.sizes.length}</div>
-                                <div><strong>Photos</strong>${imageCount}</div>
+                    return `
+                        <div class="product-card">
+                            <div class="product-image-section">
+                                <img class="product-image-main" src="${firstImage}" alt="${product.name || 'Product'}">
+                                <div class="image-counter">${imageCount} photos</div>
+                                ${imageCount > 1 ? '<div class="image-nav">' + images.map((_, i) => `<div class="image-dot${i === 0 ? ' active' : ''}" onclick=""></div>`).join('') + '</div>' : ''}
                             </div>
-                            <div class="product-actions">
-                                <button class="btn-edit" onclick="deleteProduct(${product.id})">Delete</button>
+                            <div class="product-info">
+                                <div class="product-category">${product.category || 'Uncategorized'}</div>
+                                <div class="product-name">${product.name || 'Unnamed'}</div>
+                                <div class="product-price">${product.price || 'Price on Request'}</div>
+                                <div class="product-meta">
+                                    <div><strong>Sizes</strong>${sizes.length}</div>
+                                    <div><strong>Photos</strong>${imageCount}</div>
+                                </div>
+                                <div class="product-actions">
+                                    <button class="btn-edit" onclick="deleteProduct(${product.id || 0})">Delete</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                `;
-            }).join('');
+                    `;
+                }).join('');
+            } catch (e) {
+                console.error('Error rendering products:', e);
+                list.innerHTML = '<div class="empty-state">Error loading products</div>';
+            }
         }
 
         function updateStats() {
-            document.getElementById('totalProducts').textContent = products.length;
-            document.getElementById('totalImages').textContent = products.reduce((sum, p) => sum + p.images.length, 0);
+            try {
+                const validProducts = products && Array.isArray(products) ? products : [];
+                document.getElementById('totalProducts').textContent = validProducts.length;
+                
+                const totalImages = validProducts.reduce((sum, p) => {
+                    if (!p) return sum;
+                    const images = Array.isArray(p.images) ? p.images : [];
+                    return sum + images.length;
+                }, 0);
+                
+                document.getElementById('totalImages').textContent = totalImages;
+            } catch (e) {
+                console.error('Error updating stats:', e);
+                document.getElementById('totalProducts').textContent = '0';
+                document.getElementById('totalImages').textContent = '0';
+            }
         }
 
         function filterProducts() {
